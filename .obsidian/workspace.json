@@ -11,14 +11,10 @@
             "id": "910a1df9088d0f65",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "blog/anxiety.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "anxiety"
+              "title": "Новая вкладка"
             }
           }
         ]
@@ -31,14 +27,10 @@
             "id": "f5000b768447a69f",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Templates/blog-template.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "blog-template"
+              "title": "Новая вкладка"
             }
           }
         ]
@@ -206,32 +198,33 @@
   },
   "active": "f5000b768447a69f",
   "lastOpenFiles": [
-    "blog/Без названия.md",
+    "Новый текстовый документ.txt",
+    "js/script.js",
+    "js/blog.js",
+    "js",
+    "index.html",
+    "css/style.css",
+    "css",
+    "contacts-questionnaire.md",
+    "blog/what-does-psychologist-do.md",
+    "blog/teenager-relations.md",
     "blog/kek.md",
+    "blog/anxiety.md",
+    "blog",
+    "blog.html",
     "Templates/blog-template.md",
     "Templates",
-    "blog/teenager-relations.md",
-    "TASK.md",
-    "blog/anxiety.md",
-    "blog/what-does-psychologist-do.md",
-    "contacts-questionnaire.md",
-    "blog/contacts-questionnaire.md",
     "TODO.md",
+    "TASK.md",
     "README.md",
+    "designs/option6-soft.html",
+    "правки и изменения.md",
+    "task.md",
     "questionnaire.md",
     "design-options.md",
-    "task.md",
+    "blog/Без названия.md",
+    "blog/contacts-questionnaire.md",
     "blog/questionnaire.md",
-    "js/blog.js",
-    "blog.html",
-    "blog",
-    "js/script.js",
-    "css/style.css",
-    "index.html",
-    "js",
-    "css",
-    "правки и изменения.md",
-    "designs/option7-zen.html",
     " questionnaire.md"
   ]
 }
