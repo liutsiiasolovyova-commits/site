@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "task.md",
+                "file": "TODO.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "task"
+              "title": "TODO"
             }
           }
         ]
@@ -186,19 +186,20 @@
   "active": "910a1df9088d0f65",
   "lastOpenFiles": [
     "blog/what-does-psychologist-do.md",
-    "blog/teenager-relations.md",
     "blog/anxiety.md",
+    "blog/teenager-relations.md",
+    "TODO.md",
+    "README.md",
+    "task.md",
     "blog/questionnaire.md",
     "js/blog.js",
     "blog.html",
     "blog",
-    "README.md",
     "js/script.js",
     "css/style.css",
     "index.html",
     "js",
     "css",
-    "task.md",
     "правки и изменения.md",
     "contacts-questionnaire.md",
     "design-options.md",
