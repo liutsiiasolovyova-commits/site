@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Психолог Наталья Петрова</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FFF9F0;
+            --accent: #C47D5E;
+            --text: #4A3F35;
+            --secondary: #FFE8D6;
+            --white: #FFFFFF;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        header { padding: 20px 0; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--accent); }
+        nav a { color: var(--text); text-decoration: none; margin-left: 28px; font-size: 0.95rem; font-weight: 600; transition: color 0.3s; }
+        nav a:hover { color: var(--accent); }
+        
+        .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; padding: 70px 0; }
+        .hero-content h1 { font-family: 'DM Serif Display', serif; font-size: 2.8rem; margin-bottom: 20px; line-height: 1.2; }
+        .hero-content p { font-size: 1.05rem; margin-bottom: 25px; opacity: 0.85; }
+        .btn { display: inline-block; padding: 14px 35px; background: var(--accent); color: var(--white); text-decoration: none; border-radius: 25px; font-weight: 600; transition: all 0.3s; }
+        .btn:hover { background: #A86848; transform: translateY(-2px); }
+        .hero-photo { background: var(--secondary); border-radius: 20px; height: 380px; display: flex; align-items: center; justify-content: center; }
+        
+        .section { padding: 70px 0; }
+        .section-title { font-family: 'DM Serif Display', serif; font-size: 2rem; text-align: center; margin-bottom: 45px; }
+        
+        .about { background: var(--white); border-radius: 20px; margin: 20px auto; max-width: 1000px; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; padding: 50px; }
+        
+        .services { background: var(--secondary); }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .service-card { background: var(--white); padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(196, 125, 94, 0.1); transition: all 0.3s; }
+        .service-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(196, 125, 94, 0.2); }
+        .service-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.25rem; margin-bottom: 12px; }
+        .service-card .price { color: var(--accent); font-weight: 700; margin-top: 15px; }
+        
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; max-width: 900px; margin: 0 auto; }
+        .price-card { background: var(--white); padding: 35px; text-align: center; border-radius: 15px; }
+        .price-card.featured { background: var(--accent); color: var(--white); }
+        .price-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; margin-bottom: 8px; }
+        .price-card .cost { font-size: 1.8rem; font-weight: 700; margin: 12px 0; }
+        
+        .contacts { background: var(--accent); color: var(--white); text-align: center; padding: 70px 0; }
+        .contact-btn { display: inline-block; padding: 15px 40px; background: var(--white); color: var(--accent); text-decoration: none; border-radius: 25px; font-weight: 600; }
+        
+        footer { padding: 25px 0; text-align: center; font-size: 0.9rem; opacity: 0.7; }
+        
+        @media (max-width: 768px) {
+            .hero, .about-grid, .services-grid, .pricing-grid { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Наталья Петрова</div>
+            <nav>
+                <a href="#about">Обо мне</a>
+                <a href="#services">Услуги</a>
+                <a href="#pricing">Цены</a>
+                <a href="#contacts">Контакты</a>
+            </nav>
+        </header>
+        
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Психологическая помощь<br>с теплом и вниманием</h1>
+                <p>Помогу найти выход из сложной ситуации в атмосфере безопасности и принятия. Вместе мы справимся.</p>
+                <a href="#contacts" class="btn">Записаться на консультацию</a>
+            </div>
+            <div class="hero-photo">
+                <span style="opacity: 0.5;">Фото</span>
+            </div>
+        </section>
+    </div>
+    
+    <section class="section about" id="about">
+        <div class="container">
+            <h2 class="section-title">Обо мне</h2>
+            <div class="about-grid">
+                <div style="background: var(--secondary); border-radius: 15px; height: 250px; display: flex; align-items: center; justify-content: center;">
+                    <span style="opacity: 0.5;">Фото</span>
+                </div>
+                <div>
+                    <p style="margin-bottom: 15px; font-weight: 600;">Клинический психолог, гештальт-терапевт.</p>
+                    <p style="margin-bottom: 15px;">Помогаю людям разобраться в сложных жизненных ситуациях, обрести гармонию и научиться понимать себя.</p>
+                    <p>Стаж работы: 8 лет. Образование: МГУ им. Ломоносова.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section services" id="services">
+        <div class="container">
+            <h2 class="section-title">Услуги</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Индивидуальная консультация</h3>
+                    <p>Работа с тревожностью, стрессом и личными проблемами.</p>
+                    <div class="price">3000 ₽ / 60 мин</div>
+                </div>
+                <div class="service-card">
+                    <h3>Консультация пары</h3>
+                    <p>Восстановление отношений и улучшение коммуникации.</p>
+                    <div class="price">5000 ₽ / 90 мин</div>
+                </div>
+                <div class="service-card">
+                    <h3>Онлайн-консультация</h3>
+                    <p>Удобные sessions по видеосвязи.</p>
+                    <div class="price">2500 ₽ / 60 мин</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Тарифы</h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>Разовая</h3>
+                    <div class="cost">3000 ₽</div>
+                    <p>60 минут</p>
+                </div>
+                <div class="price-card featured">
+                    <h3>Базовый</h3>
+                    <div class="cost">25000 ₽</div>
+                    <p>10 сессий</p>
+                </div>
+                <div class="price-card">
+                    <h3>Интенсив</h3>
+                    <div class="cost">45000 ₽</div>
+                    <p>20 сессий</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="contacts" id="contacts">
+        <div class="container">
+            <h2 style="font-family: 'DM Serif Display', serif; font-size: 2rem; margin-bottom: 20px;">Запишитесь на консультацию</h2>
+            <p style="margin-bottom: 30px; opacity: 0.9;">Я буду рада помочь вам.</p>
+            <a href="tel:+79000000000" class="contact-btn">+7 (900) 000-00-00</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>© 2026 Наталья Петрова. Психолог-консультант.</p>
+        </div>
+    </footer>
+</body>
+</html>

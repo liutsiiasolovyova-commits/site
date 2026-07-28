@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Психолог Дмитрий Сергеев</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FAFAFA;
+            --accent: #2C3E50;
+            --text: #1A1A1A;
+            --secondary: #F0F0F0;
+            --white: #FFFFFF;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        header { padding: 20px 0; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 1.4rem; font-weight: 600; letter-spacing: 1px; }
+        nav a { color: var(--text); text-decoration: none; margin-left: 30px; font-size: 0.9rem; font-weight: 600; transition: color 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        nav a:hover { color: var(--accent); }
+        
+        .hero { background: var(--accent); color: var(--white); padding: 100px 0; }
+        .hero h1 { font-family: 'Oswald', sans-serif; font-size: 3.5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+        .hero p { font-size: 1.1rem; max-width: 500px; margin-bottom: 30px; opacity: 0.9; }
+        .btn { display: inline-block; padding: 15px 35px; background: var(--white); color: var(--accent); text-decoration: none; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; }
+        .btn:hover { background: var(--secondary); }
+        
+        .section { padding: 80px 0; }
+        .section-title { font-family: 'Oswald', sans-serif; font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 50px; position: relative; padding-bottom: 15px; }
+        .section-title::after { content: ''; position: absolute; bottom: 0; left: 0; width: 60px; height: 4px; background: var(--accent); }
+        
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        .about-photo { background: var(--secondary); height: 300px; display: flex; align-items: center; justify-content: center; }
+        
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .service-card { background: var(--white); padding: 30px; border: 2px solid var(--secondary); transition: all 0.3s; }
+        .service-card:hover { border-color: var(--accent); }
+        .service-card h3 { font-family: 'Oswald', sans-serif; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+        .service-card .price { font-weight: 600; margin-top: 15px; color: var(--accent); }
+        
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .price-card { background: var(--white); padding: 40px; text-align: center; border: 2px solid var(--secondary); }
+        .price-card.featured { background: var(--accent); color: var(--white); border-color: var(--accent); }
+        .price-card h3 { font-family: 'Oswald', sans-serif; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .price-card .cost { font-size: 2.2rem; font-weight: 600; margin: 20px 0; }
+        
+        .contacts { background: var(--text); color: var(--white); text-align: center; padding: 80px 0; }
+        .contact-btn { display: inline-block; padding: 16px 40px; background: var(--accent); color: var(--white); text-decoration: none; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        
+        footer { padding: 25px 0; text-align: center; background: var(--secondary); font-size: 0.85rem; }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .about-grid, .services-grid, .pricing-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">ДМИТРИЙ СЕРГЕЕВ</div>
+            <nav>
+                <a href="#about">Обо мне</a>
+                <a href="#services">Услуги</a>
+                <a href="#pricing">Цены</a>
+                <a href="#contacts">Контакты</a>
+            </nav>
+        </header>
+    </div>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Психолог<br>Дмитрий Сергеев</h1>
+            <p>Профессиональная психологическая помощь. Работаю с тревожностью, отношениями и личностным ростом.</p>
+            <a href="#contacts" class="btn">Записаться</a>
+        </div>
+    </section>
+    
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title">Обо мне</h2>
+            <div class="about-grid">
+                <div class="about-photo">
+                    <span style="opacity: 0.5;">Фото</span>
+                </div>
+                <div>
+                    <p style="margin-bottom: 15px; font-weight: 600;">Клинический психолог, когнитивно-поведенческий терапевт.</p>
+                    <p style="margin-bottom: 15px;">Специализируюсь на работе с тревожными расстройствами, депрессией и проблемами в отношениях.</p>
+                    <p>Стаж: 9 лет. Более 600 проведённых консультаций.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="services">
+        <div class="container">
+            <h2 class="section-title">Услуги</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Консультация</h3>
+                    <p>Индивидуальная работа с личными проблемами.</p>
+                    <div class="price">3000 ₽ / 60 мин</div>
+                </div>
+                <div class="service-card">
+                    <h3>Парная работа</h3>
+                    <p>Консультации для пар и семей.</p>
+                    <div class="price">5000 ₽ / 90 мин</div>
+                </div>
+                <div class="service-card">
+                    <h3>Онлайн</h3>
+                    <p>Консультации по видеосвязи.</p>
+                    <div class="price">2500 ₽ / 60 мин</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Тарифы</h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>Разово</h3>
+                    <div class="cost">3000 ₽</div>
+                    <p>60 минут</p>
+                </div>
+                <div class="price-card featured">
+                    <h3>Базовый</h3>
+                    <div class="cost">25000 ₽</div>
+                    <p>10 сессий</p>
+                </div>
+                <div class="price-card">
+                    <h3>Интенсив</h3>
+                    <div class="cost">45000 ₽</div>
+                    <p>20 сессий</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="contacts" id="contacts">
+        <div class="container">
+            <h2 style="font-family: 'Oswald', sans-serif; font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">Связаться</h2>
+            <p style="margin-bottom: 30px; opacity: 0.9;">Готовы начать работу — звоните или пишите.</p>
+            <a href="tel:+79000000000" class="contact-btn">+7 (900) 000-00-00</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>© 2026 Дмитрий Сергеев. Психолог-консультант.</p>
+        </div>
+    </footer>
+</body>
+</html>
