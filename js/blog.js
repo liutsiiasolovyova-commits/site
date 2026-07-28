@@ -2,11 +2,136 @@
 
 const BLOG_PATH = 'blog/';
 
+// ============================================
+// КАК ДОБАВИТЬ НОВУЮ СТАТЬЮ:
+// 1. Создайте .md файл в папке blog/
+// 2. Добавьте файл в список files ниже
+// ============================================
+
+// Fallback posts (used if fetch fails)
+const fallbackPosts = [
+    {
+        slug: 'anxiety',
+        title: 'Как справиться с тревожностью',
+        date: '2026-07-15',
+        excerpt: 'Тревожность стала постоянным спутником многих. В этой статье разбираемся, что такое тревога и как с ней справляться.',
+        tags: ['тревожность', 'саморазвитие'],
+        content: `
+## Что такое тревожность?
+
+Тревожность — это состояние повышенного беспокойства и страха перед будущим. Это нормальная реакция организма на стресс, но когда она становится постоянной, это может мешать жить полноценно.
+
+## Признаки тревожности
+
+- Постоянное чувство беспокойства
+- Напряжение в теле
+- Нарушения сна
+- Трудности с концентрацией
+- Учащённое сердцебиение
+
+## Как справиться?
+
+### 1. Дыхательные практики
+
+Глубокое дыхание помогает успокоить нервную систему. Попробуйте технику **4-7-8**: вдох на 4 счёта, задержка на 7, выдох на 8.
+
+### 2. Физическая активность
+
+Регулярные упражнения снижают уровень кортизола — гормона стресса.
+
+### 3. Осознанность
+
+Медитация и практики осознанности помогают быть в настоящем моменте.
+
+### 4. Обращение к специалисту
+
+Если тревога мешает жизни, важно обратиться к психологу.
+
+> «Тревога — это как качели: можно научиться управлять ею, а не позволять ей управлять вами.»
+
+## Заключение
+
+Тревожность поддаётся контролю. Главное — не запускать проблему и работать над собой.
+        `
+    },
+    {
+        slug: 'teenager-relations',
+        title: 'Как наладить отношения с подростком',
+        date: '2026-07-20',
+        excerpt: 'Подростковый возраст — сложный период для всей семьи. Как найти общий язык с ребёнком?',
+        tags: ['отношения', 'подростки', 'семья'],
+        content: `
+## Почему подростки отдаляются?
+
+В подростковом возрасте ребёнок начинает формировать свою идентичность. Это естественный процесс отделения от родителей.
+
+## Что делать?
+
+### Слушайте больше, чем говорите
+
+Подростку важно, чтобы его слышали. Не спешите с советами — сначала выслушайте.
+
+### Уважайте границы
+
+У подростка должно быть личное пространство — и физическое, и эмоциональное.
+
+### Избегайте критики
+
+Вместо критики — поддержка. Подросток нуждается в вашей вере в него.
+
+### Будьте примером
+
+Дети учатся через наблюдение. Покажите, как справляться с трудностями.
+
+## Когда обращаться к специалисту?
+
+Если конфликты в семье стали невыносимыми, или подросток замкнулся в себе — это повод обратиться к психологу.
+        `
+    },
+    {
+        slug: 'what-does-psychologist-do',
+        title: 'Чем занимается психолог?',
+        date: '2026-07-25',
+        excerpt: 'Разбираемся, чем психолог отличается от психиатра и как проходит консультация.',
+        tags: ['психология', 'консультация'],
+        content: `
+## Психолог и психиатр — в чём разница?
+
+- **Психолог** — специалист с высшим психологическим образованием, который работает с помощью беседы. Не назначает лекарства.
+
+- **Психиатр** — врач, который может назначать медикаменты. Работает с психическими расстройствами.
+
+## Что делает психолог?
+
+На консультации психолог:
+- Слушает вас
+- Задаёт вопросы
+- Помогает разобраться в себе
+- Даёт инструменты для работы над собой
+
+## Как проходит консультация?
+
+Первая консультация — знакомство. Вы рассказываете о своей ситуации, психолог слушает и задаёт вопросы. В конце определяем цели и план работы.
+
+## Сколько нужно консультаций?
+
+Это индивидуально. Кому-то достаточно 5-10 сессий, кому-то нужна более длительная работа. Главное — ваше желание работать над собой.
+        `
+    }
+];
+
+// Список .md файлов статей (для GitHub Pages)
+const files = [
+    'anxiety.md',
+    'teenager-relations.md',
+    'what-does-psychologist-do.md'
+];
+
 // Simple markdown to HTML converter
 function mdToHtml(md) {
     let html = md;
     
-    // Code blocks (must be first)
+    // Code blocks
     html = html.replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>');
     
     // Headers
@@ -39,7 +164,7 @@ function mdToHtml(md) {
     // Ordered lists
     html = html.replace(/^\d+\. (.*$)/gim, '<li>$1</li>');
     
-    // Paragraphs - split by double newlines
+    // Paragraphs
     const blocks = html.split(/\n\n+/);
     html = '';
     blocks.forEach(block => {
@@ -52,32 +177,23 @@ function mdToHtml(md) {
         }
     });
     
-    // Clean up empty paragraphs and extra breaks
+    // Clean up
     html = html.replace(/<p><\/p>/g, '');
     html = html.replace(/<p>(<h[1-4]>)/g, '$1');
     html = html.replace(/(<\/h[1-4]>)<\/p>/g, '$1');
     html = html.replace(/<p>(<ul>)/g, '$1');
     html = html.replace(/(<\/ul>)<\/p>/g, '$1');
-    html = html.replace(/<p>(<ol>)/g, '$1');
-    html = html.replace(/(<\/ol>)<\/p>/g, '$1');
     html = html.replace(/<p>(<blockquote>)/g, '$1');
     html = html.replace(/(<\/blockquote>)<\/p>/g, '$1');
-    html = html.replace(/<p>(<pre>)/g, '$1');
-    html = html.replace(/(<\/pre>)<\/p>/g, '$1');
-    html = html.replace(/<p>(<hr>)/g, '$1');
-    html = html.replace(/(<hr>)<\/p>/g, '$1');
     
     return html;
 }
 
-// Parse frontmatter from markdown
+// Parse frontmatter
 function parseFrontmatter(content) {
     const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
     if (!match) {
-        return {
-            meta: {},
-            content: content
-        };
+        return { meta: {}, content: content };
     }
     
     const frontmatter = match[1];
@@ -88,7 +204,6 @@ function parseFrontmatter(content) {
         const [key, ...valueParts] = line.split(':');
         if (key && valueParts.length) {
             let value = valueParts.join(':').trim();
-            // Remove quotes
             value = value.replace(/^["']|["']$/g, '');
             meta[key.trim()] = value;
         }
@@ -105,11 +220,11 @@ function formatDate(dateStr) {
     return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
-// Fetch all markdown files from blog folder
+// Fetch blog posts
 async function fetchBlogPosts() {
     const posts = [];
     
-    // Try to load from .md files first
+    // Try to load from .md files
     const loadPromises = files.map(async (file) => {
         try {
             const response = await fetch(BLOG_PATH + file);
@@ -117,7 +232,6 @@ async function fetchBlogPosts() {
             const text = await response.text();
             const { meta, content } = parseFrontmatter(text);
             
-            // Generate slug from filename
             const slug = file.replace('.md', '');
             
             return {
@@ -143,50 +257,7 @@ async function fetchBlogPosts() {
         return fallbackPosts;
     }
     
-    // Sort by date (newest first)
-    posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-    
-    return posts;
-}
-];
-
-// Список .md файлов статей (для GitHub Pages)
-const files = [
-    'anxiety.md',
-    'teenager-relations.md',
-    'what-does-psychologist-do.md'
-];
-    
-    const loadPromises = files.map(async (file) => {
-        try {
-            const response = await fetch(BLOG_PATH + file);
-            if (!response.ok) return null;
-            const text = await response.text();
-            const { meta, content } = parseFrontmatter(text);
-            
-            // Generate slug from filename
-            const slug = file.replace('.md', '');
-            
-            return {
-                slug,
-                title: meta.title || slug,
-                date: meta.date || '',
-                excerpt: meta.excerpt || content.substring(0, 150).replace(/[#*\n]/g, '').trim() + '...',
-                tags: meta.tags ? meta.tags.split(',').map(t => t.trim()) : [],
-                content
-            };
-        } catch (e) {
-            console.error('Error loading', file, e);
-            return null;
-        }
-    });
-    
-    const results = await Promise.all(loadPromises);
-    results.forEach(post => {
-        if (post) posts.push(post);
-    });
-    
-    // Sort by date (newest first)
+    // Sort by date
     posts.sort((a, b) => new Date(b.date) - new Date(a.date));
     
     return posts;
@@ -207,10 +278,7 @@ async function renderBlogList() {
                 <div class="container section">
                     <h1 class="section-title">Блог</h1>
                     <div class="blog-list">
-                        <div class="blog-empty">
-                            <p>Статей пока нет.</p>
-                            <p>Чтобы добавить статью, создайте .md файл в папке <code>blog/</code></p>
-                        </div>
+                        <div class="blog-empty">Статей пока нет.</div>
                     </div>
                 </div>
             `;
@@ -235,14 +303,12 @@ async function renderBlogList() {
         html += '</div></div>';
         blogContent.innerHTML = html;
     } catch (e) {
+        console.error(e);
         blogContent.innerHTML = `
             <div class="container section">
                 <h1 class="section-title">Блог</h1>
                 <div class="blog-list">
-                    <div class="error">
-                        <p>Не удалось загрузить статьи.</p>
-                        <p>Для локального просмотра используйте локальный сервер.</p>
-                    </div>
+                    <div class="error">Ошибка загрузки статей</div>
                 </div>
             </div>
         `;
@@ -256,6 +322,7 @@ async function renderPost(slug) {
     
     blogContent.innerHTML = '<div class="loading">Загрузка статьи...</div>';
     
+    // Try .md file first
     try {
         const response = await fetch(BLOG_PATH + slug + '.md');
         if (response.ok) {
