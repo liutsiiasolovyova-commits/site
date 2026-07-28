@@ -109,18 +109,53 @@ function formatDate(dateStr) {
 async function fetchBlogPosts() {
     const posts = [];
     
-    // ============================================
-    // КАК ДОБАВИТЬ НОВУЮ СТАТЬЮ:
-    // 1. Создайте .md файл в папке blog/
-    // 2. Добавьте файл в список files ниже
-    // ============================================
+    // Try to load from .md files first
+    const loadPromises = files.map(async (file) => {
+        try {
+            const response = await fetch(BLOG_PATH + file);
+            if (!response.ok) return null;
+            const text = await response.text();
+            const { meta, content } = parseFrontmatter(text);
+            
+            // Generate slug from filename
+            const slug = file.replace('.md', '');
+            
+            return {
+                slug,
+                title: meta.title || slug,
+                date: meta.date || '',
+                excerpt: meta.excerpt || content.substring(0, 150).replace(/[#*\n]/g, '').trim() + '...',
+                tags: meta.tags ? meta.tags.split(',').map(t => t.trim()) : [],
+                content
+            };
+        } catch (e) {
+            return null;
+        }
+    });
     
-    // Список .md файлов статей
-    const files = [
-        'anxiety.md',
-        'teenager-relations.md',
-        'what-does-psychologist-do.md'
-    ];
+    const results = await Promise.all(loadPromises);
+    results.forEach(post => {
+        if (post) posts.push(post);
+    });
+    
+    // If no posts loaded, use fallback
+    if (posts.length === 0) {
+        return fallbackPosts;
+    }
+    
+    // Sort by date (newest first)
+    posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+    
+    return posts;
+}
+];
+
+// Список .md файлов статей (для GitHub Pages)
+const files = [
+    'anxiety.md',
+    'teenager-relations.md',
+    'what-does-psychologist-do.md'
+];
     
     const loadPromises = files.map(async (file) => {
         try {
@@ -223,36 +258,59 @@ async function renderPost(slug) {
     
     try {
         const response = await fetch(BLOG_PATH + slug + '.md');
-        if (!response.ok) {
-            throw new Error('Post not found');
+        if (response.ok) {
+            const text = await response.text();
+            const { meta, content } = parseFrontmatter(text);
+            
+            const html = `
+                <article class="blog-article">
+                    <a href="blog.html" class="back-link">← Назад к блогу</a>
+                    <header class="blog-article__header">
+                        <div class="blog-article__date">${formatDate(meta.date)}</div>
+                        <h1 class="blog-article__title">${meta.title || slug}</h1>
+                        ${meta.tags ? `<div class="blog-card__tags">${meta.tags.split(',').map(tag => `<span class="blog-tag">#${tag.trim()}</span>`).join('')}</div>` : ''}
+                    </header>
+                    <div class="blog-article__content">
+                        ${mdToHtml(content)}
+                    </div>
+                </article>
+            `;
+            
+            blogContent.innerHTML = html;
+            return;
         }
-        
-        const text = await response.text();
-        const { meta, content } = parseFrontmatter(text);
-        
+    } catch (e) {
+        // Try fallback
+    }
+    
+    // Try fallback posts
+    const post = fallbackPosts.find(p => p.slug === slug);
+    if (post) {
         const html = `
             <article class="blog-article">
                 <a href="blog.html" class="back-link">← Назад к блогу</a>
                 <header class="blog-article__header">
-                    <div class="blog-article__date">${formatDate(meta.date)}</div>
-                    <h1 class="blog-article__title">${meta.title || slug}</h1>
-                    ${meta.tags ? `<div class="blog-card__tags">${meta.tags.split(',').map(tag => `<span class="blog-tag">#${tag.trim()}</span>`).join('')}</div>` : ''}
+                    <div class="blog-article__date">${formatDate(post.date)}</div>
+                    <h1 class="blog-article__title">${post.title}</h1>
+                    <div class="blog-card__tags">
+                        ${post.tags.map(tag => `<span class="blog-tag">#${tag}</span>`).join('')}
+                    </div>
                 </header>
                 <div class="blog-article__content">
-                    ${mdToHtml(content)}
+                    ${mdToHtml(post.content)}
                 </div>
             </article>
         `;
-        
         blogContent.innerHTML = html;
-    } catch (e) {
-        blogContent.innerHTML = `
-            <div class="container">
-                <div class="error">Статья не найдена</div>
-                <a href="blog.html" class="back-link">← Назад к блогу</a>
-            </div>
-        `;
+        return;
     }
+    
+    blogContent.innerHTML = `
+        <div class="container">
+            <div class="error">Статья не найдена</div>
+            <a href="blog.html" class="back-link">← Назад к блогу</a>
+        </div>
+    `;
 }
 
 // Initialize
