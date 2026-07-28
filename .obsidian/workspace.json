@@ -8,17 +8,13 @@
         "type": "tabs",
         "children": [
           {
-            "id": "5cfb2e6a7ba81334",
+            "id": "910a1df9088d0f65",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "questionnaire.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "questionnaire"
+              "title": "Новая вкладка"
             }
           }
         ]
@@ -183,9 +179,24 @@
       "bases:Создать новую базу": false
     }
   },
-  "active": "5cfb2e6a7ba81334",
+  "active": "910a1df9088d0f65",
   "lastOpenFiles": [
+    "README.md",
+    "js/script.js",
+    "css/style.css",
+    "index.html",
+    "js",
+    "css",
+    "task.md",
+    "правки и изменения.md",
+    "contacts-questionnaire.md",
+    "design-options.md",
     "questionnaire.md",
+    "designs/option7-zen.html",
+    "designs/option6-soft.html",
+    "designs/option5-scandic.html",
+    "designs/option4-lavender.html",
+    "designs/option3-air.html",
     " questionnaire.md"
   ]
 }
