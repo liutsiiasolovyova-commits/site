@@ -124,7 +124,8 @@ const fallbackPosts = [
 const files = [
     'anxiety.md',
     'teenager-relations.md',
-    'what-does-psychologist-do.md'
+    'what-does-psychologist-do.md',
+    'kek.md'
 ];
 
 // Simple markdown to HTML converter
