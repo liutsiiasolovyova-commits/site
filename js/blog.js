@@ -15,7 +15,7 @@ const fallbackPosts = [
         title: 'Как справиться с тревожностью',
         date: '2026-07-15',
         excerpt: 'Тревожность стала постоянным спутником многих. В этой статье разбираемся, что такое тревога и как с ней справляться.',
-        tags: ['тревожность', 'саморазвитие'],
+        tags: ['тревожность', 'саморазвитие', 'стресс'],
         content: `
 ## Что такое тревожность?
 
@@ -189,7 +189,7 @@ function mdToHtml(md) {
     return html;
 }
 
-// Parse frontmatter
+// Parse frontmatter (Obsidian compatible)
 function parseFrontmatter(content) {
     const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
     if (!match) {
@@ -200,14 +200,52 @@ function parseFrontmatter(content) {
     const body = match[2];
     const meta = {};
     
+    let currentKey = null;
+    let arrayItems = [];
+    
     frontmatter.split('\n').forEach(line => {
-        const [key, ...valueParts] = line.split(':');
-        if (key && valueParts.length) {
-            let value = valueParts.join(':').trim();
-            value = value.replace(/^["']|["']$/g, '');
-            meta[key.trim()] = value;
+        // Check for array start: tags: [tag1, tag2]
+        const arrayInline = line.match(/^(\w+):\s*\[(.*)\]\s*$/);
+        if (arrayInline) {
+            meta[arrayInline[1]] = arrayInline[2].split(',').map(t => t.trim().replace(/^["']|["']$/g, ''));
+            currentKey = null;
+            return;
+        }
+        
+        // Check for key: value
+        const kvMatch = line.match(/^(\w+):\s*(.*)\s*$/);
+        if (kvMatch) {
+            // Save previous array if any
+            if (currentKey && arrayItems.length > 0) {
+                meta[currentKey] = arrayItems;
+                arrayItems = [];
+            }
+            
+            currentKey = kvMatch[1];
+            const value = kvMatch[2].trim();
+            
+            if (value === '' || value === '[]') {
+                // Start of array (empty or next lines)
+                arrayItems = [];
+            } else {
+                meta[currentKey] = value.replace(/^["']|["']$/g, '');
+                currentKey = null;
+            }
+            return;
+        }
+        
+        // Check for array item: - item
+        const arrayItem = line.match(/^\s+-\s+(.*)\s*$/);
+        if (arrayItem && currentKey) {
+            arrayItems.push(arrayItem[1].trim().replace(/^["']|["']$/g, ''));
+            return;
         }
     });
+    
+    // Save last array if any
+    if (currentKey && arrayItems.length > 0) {
+        meta[currentKey] = arrayItems;
+    }
     
     return { meta, content: body };
 }
@@ -239,7 +277,7 @@ async function fetchBlogPosts() {
                 title: meta.title || slug,
                 date: meta.date || '',
                 excerpt: meta.excerpt || content.substring(0, 150).replace(/[#*\n]/g, '').trim() + '...',
-                tags: meta.tags ? meta.tags.split(',').map(t => t.trim()) : [],
+                tags: Array.isArray(meta.tags) ? meta.tags : (meta.tags ? meta.tags.split(',').map(t => t.trim()) : []),
                 content
             };
         } catch (e) {
@@ -335,7 +373,7 @@ async function renderPost(slug) {
                     <header class="blog-article__header">
                         <div class="blog-article__date">${formatDate(meta.date)}</div>
                         <h1 class="blog-article__title">${meta.title || slug}</h1>
-                        ${meta.tags ? `<div class="blog-card__tags">${meta.tags.split(',').map(tag => `<span class="blog-tag">#${tag.trim()}</span>`).join('')}</div>` : ''}
+                        ${meta.tags ? `<div class="blog-card__tags">${(Array.isArray(meta.tags) ? meta.tags : meta.tags.split(',')).map(tag => `<span class="blog-tag">#${tag.trim()}</span>`).join('')}</div>` : ''}
                     </header>
                     <div class="blog-article__content">
                         ${mdToHtml(content)}
