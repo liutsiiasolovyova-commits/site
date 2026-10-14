@@ -1,11 +1,13 @@
 // Blog posts loader - reads .md files from blog/ folder
 
 const BLOG_PATH = 'blog/';
+const POSTS_INDEX = BLOG_PATH + 'posts.json';
 
 // ============================================
 // КАК ДОБАВИТЬ НОВУЮ СТАТЬЮ:
 // 1. Создайте .md файл в папке blog/
-// 2. Добавьте файл в список files ниже
+//    (по шаблону blog-template.md из корня проекта)
+// 2. Добавьте имя файла в список blog/posts.json
 // ============================================
 
 // Fallback posts (used if fetch fails)
@@ -120,13 +122,22 @@ const fallbackPosts = [
     }
 ];
 
-// Список .md файлов статей (для GitHub Pages)
-const files = [
-    'anxiety.md',
-    'teenager-relations.md',
-    'what-does-psychologist-do.md',
-    'kek.md'
-];
+// Список .md файлов статей загружается из blog/posts.json
+let fileList = null;
+
+async function loadFileList() {
+    if (fileList) return fileList;
+    try {
+        const response = await fetch(POSTS_INDEX);
+        if (response.ok) {
+            const data = await response.json();
+            fileList = Array.isArray(data) ? data : (Array.isArray(data.posts) ? data.posts : []);
+        }
+    } catch (e) {
+        // локальный запуск через file:// — используем fallback
+    }
+    return fileList || [];
+}
 
 // Simple markdown to HTML converter
 function mdToHtml(md) {
@@ -208,7 +219,7 @@ function parseFrontmatter(content) {
         // Check for array start: tags: [tag1, tag2]
         const arrayInline = line.match(/^(\w+):\s*\[(.*)\]\s*$/);
         if (arrayInline) {
-            meta[arrayInline[1]] = arrayInline[2].split(',').map(t => t.trim().replace(/^["']|["']$/g, ''));
+            meta[arrayInline[1]] = arrayInline[2].split(',').map(t => t.trim().replace(/^["']|["']$/g, '').replace(/^#/, ''));
             currentKey = null;
             return;
         }
@@ -238,7 +249,7 @@ function parseFrontmatter(content) {
         // Check for array item: - item
         const arrayItem = line.match(/^\s+-\s+(.*)\s*$/);
         if (arrayItem && currentKey) {
-            arrayItems.push(arrayItem[1].trim().replace(/^["']|["']$/g, ''));
+            arrayItems.push(arrayItem[1].trim().replace(/^["']|["']$/g, '').replace(/^#/, ''));
             return;
         }
     });
@@ -263,8 +274,10 @@ function formatDate(dateStr) {
 async function fetchBlogPosts() {
     const posts = [];
     
+    const fileNames = await loadFileList();
+    
     // Try to load from .md files
-    const loadPromises = files.map(async (file) => {
+    const loadPromises = fileNames.map(async (file) => {
         try {
             const response = await fetch(BLOG_PATH + file);
             if (!response.ok) return null;
@@ -278,7 +291,7 @@ async function fetchBlogPosts() {
                 title: meta.title || slug,
                 date: meta.date || '',
                 excerpt: meta.excerpt || content.substring(0, 150).replace(/[#*\n]/g, '').trim() + '...',
-                tags: Array.isArray(meta.tags) ? meta.tags : (meta.tags ? meta.tags.split(',').map(t => t.trim()) : []),
+                tags: Array.isArray(meta.tags) ? meta.tags : (meta.tags ? meta.tags.split(',').map(t => t.trim().replace(/^#/, '')) : []),
                 content
             };
         } catch (e) {

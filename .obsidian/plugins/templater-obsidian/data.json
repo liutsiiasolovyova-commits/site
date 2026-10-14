@@ -16,7 +16,7 @@
   "folder_templates": [
     {
       "folder": "blog",
-      "template": "Templates/blog-template.md"
+      "template": "blog-template.md"
     }
   ],
   "enable_file_templates": false,
