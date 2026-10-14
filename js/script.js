@@ -38,25 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // FAQ accordion
-    const faqItems = document.querySelectorAll('.faq__item');
-    
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq__question');
-        
-        question.addEventListener('click', function() {
-            const isActive = item.classList.contains('active');
-            
-            // Close all items
-            faqItems.forEach(i => i.classList.remove('active'));
-            
-            // Open clicked item if it wasn't active
-            if (!isActive) {
-                item.classList.add('active');
-            }
-        });
-    });
-    
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const nav = document.querySelector('.nav');

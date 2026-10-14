@@ -328,33 +328,6 @@ body {
     transition: color var(--transition);
 }
 
-.about__stats {
-    display: flex;
-    gap: 40px;
-    margin-top: 30px;
-    padding-top: 25px;
-    border-top: 1px solid var(--border);
-}
-
-.stat {
-    text-align: center;
-}
-
-.stat__number {
-    display: block;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--accent);
-    transition: color var(--transition);
-}
-
-.stat__label {
-    font-size: 0.85rem;
-    color: var(--text-light);
-    transition: color var(--transition);
-}
-
 /* Advantages */
 .advantages__grid {
     display: grid;
@@ -416,158 +389,72 @@ body {
     transition: background var(--transition);
 }
 
-.services__grid {
+.services__inner {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+    grid-template-columns: 1fr 300px;
+    gap: 30px;
+    align-items: start;
 }
 
-.service-card {
+.services__list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.services__list li {
     background: var(--bg-card);
-    padding: 30px;
-    border-radius: 12px;
     border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 24px;
     transition: all var(--transition);
 }
 
-.service-card:hover {
-    transform: translateY(-5px);
+.services__list li:hover {
+    transform: translateY(-3px);
     box-shadow: 0 12px 30px var(--shadow);
     border-color: var(--accent-light);
 }
 
-.service-card h3 {
+.services__name {
+    display: block;
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    margin-bottom: 12px;
     color: var(--text);
+    margin-bottom: 8px;
     transition: color var(--transition);
 }
 
-.service-card p {
+.services__desc {
+    display: block;
     font-size: 0.95rem;
     color: var(--text-secondary);
-    margin-bottom: 15px;
     transition: color var(--transition);
 }
 
-.service-card__price {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--accent);
-    transition: color var(--transition);
-}
-
-/* Reviews */
-.reviews__slider {
-    overflow: hidden;
-    padding: 20px 0;
-}
-
-.reviews__track {
-    display: flex;
-    gap: 25px;
-    animation: scroll 20s linear infinite;
-}
-
-.review-card {
-    flex: 0 0 350px;
-    background: var(--bg-card);
-    padding: 30px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    transition: all var(--transition);
-}
-
-.review-card__text {
-    font-style: italic;
-    margin-bottom: 15px;
-    color: var(--text-secondary);
-    transition: color var(--transition);
-}
-
-.review-card__author {
-    font-weight: 600;
-    color: var(--accent);
-    transition: color var(--transition);
-}
-
-@keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-/* Pricing */
-.pricing__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-}
-
-.price-card {
-    background: var(--bg-card);
-    padding: 40px 30px;
-    border-radius: 12px;
-    text-align: center;
-    border: 1px solid var(--border);
-    transition: all var(--transition);
-}
-
-.price-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px var(--shadow);
-}
-
-.price-card h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 15px;
-    color: var(--text);
-    transition: color var(--transition);
-}
-
-.price-card__cost {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 20px;
-    transition: color var(--transition);
-}
-
-.price-card__list {
-    list-style: none;
-    color: var(--text-secondary);
-    transition: color var(--transition);
-}
-
-.price-card__list li {
-    padding: 8px 0;
-    border-bottom: 1px solid var(--border);
-}
-
-.price-card__list li:last-child {
-    border-bottom: none;
-}
-
-.price-card--featured {
+.services__price {
+    position: sticky;
+    top: 100px;
     background: var(--accent);
-    border-color: var(--accent);
-}
-
-.price-card--featured h3,
-.price-card--featured .price-card__cost,
-.price-card--featured .price-card__list,
-.price-card--featured .price-card__list li {
     color: white;
-    border-color: rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 40px 30px;
+    text-align: center;
 }
 
-.price-card--featured .price-card__list li:last-child {
-    border: none;
+.services__price-value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 10px;
+}
+
+.services__price-label {
+    font-size: 0.95rem;
+    opacity: 0.9;
 }
 
 /* FAQ */
@@ -586,46 +473,20 @@ body {
 }
 
 .faq__question {
-    width: 100%;
-    padding: 20px 25px;
-    background: none;
-    border: none;
-    text-align: left;
+    padding: 20px 25px 8px;
     font-family: 'Montserrat', sans-serif;
     font-size: 1rem;
     font-weight: 600;
     color: var(--text);
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     transition: all var(--transition);
 }
 
-.faq__question::after {
-    content: '+';
-    font-size: 1.5rem;
-    color: var(--accent);
-    transition: transform var(--transition);
-}
-
-.faq__item.active .faq__question::after {
-    transform: rotate(45deg);
-}
-
 .faq__answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height var(--transition);
+    padding: 0 25px 20px;
 }
 
 .faq__answer p {
-    padding: 0 25px 20px;
     color: var(--text-secondary);
-}
-
-.faq__item.active .faq__answer {
-    max-height: 200px;
 }
 
 /* Contacts */
@@ -672,16 +533,6 @@ body {
 .contact-link:hover {
     background: rgba(255,255,255,0.25);
     transform: translateY(-2px);
-}
-
-/* Footer */
-.footer {
-    padding: 25px 0;
-    text-align: center;
-    background: var(--bg-secondary);
-    color: var(--text-light);
-    font-size: 0.9rem;
-    transition: all var(--transition);
 }
 
 /* Scroll to top */
@@ -752,13 +603,17 @@ body {
         order: -1;
     }
     
-    .advantages__grid,
-    .pricing__grid {
+    .advantages__grid {
         grid-template-columns: 1fr;
     }
     
-    .pricing__grid {
-        max-width: 400px;
+    .services__inner {
+        grid-template-columns: 1fr;
+    }
+    
+    .services__price {
+        position: static;
+        max-width: 320px;
         margin: 0 auto;
     }
 }
@@ -784,8 +639,8 @@ body {
         padding: 60px 0;
     }
     
-    .about__stats {
-        justify-content: center;
+    .services__list {
+        grid-template-columns: 1fr;
     }
     
     .contacts__links {
